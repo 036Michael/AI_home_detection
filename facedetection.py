@@ -44,7 +44,7 @@ while True:
         
         #line notify
         url = "https://notify-api.line.me/api/notify"
-        token = "Z3knL5oA7dzsVDbFrZ63fuAIiusZltjuiTLSL5poVIk"
+        token = "g6rHgPV4XGmcD53PCzanYIeXNoW8udD1LpGbqMTI7X7"
         headers = {
             "Authorization": f"Bearer {token}"
         }
