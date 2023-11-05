@@ -2,6 +2,30 @@ import dlib                   # 導入dlib庫
 import cv2                    # 導入OpenCV庫
 import os                     # 導入OS庫
 import numpy as np               # 導入numpy庫
+import requests
+import line_notify
+
+url = "https://notify-api.line.me/api/notify"
+token = "OLYczNdlOmAzBQ8ztc07mIan87MHfkJfPHuBvW4XQXk"
+headers = {
+    "Authorization": f"Bearer {token}"
+}
+message = "OPEN Camera"
+payload = {
+    "message": message
+}
+
+# 做 API 呼叫
+response = requests.post(url, headers=headers, data=payload)
+
+# 檢查 HTTP 狀態碼
+if response.status_code == 200:
+    print("API 呼叫成功！")
+else:
+    print("API 呼叫失敗，狀態碼：", response.status_code)
+
+# 打印API回應
+print(response.text)
 # 初始化臉部偵測器和人臉特徵提取器
 face_detector = dlib.get_frontal_face_detector()  # 初始化臉部偵測器
 face_recognition_model = dlib.face_recognition_model_v1("dlib_face_recognition_resnet_model_v1.dat")  # 初始化人臉特徵提取器
@@ -57,6 +81,18 @@ while True:
                 print("歡迎回家")
             else:  # 如果匹配程度低
                 print("小偷入侵")
+                url = "https://notify-api.line.me/api/notify"
+                token = "OLYczNdlOmAzBQ8ztc07mIan87MHfkJfPHuBvW4XQXk"
+                headers = {
+                    "Authorization": f"Bearer {token}"
+                }
+                message = "警告，你不是大帥哥，楊宗燁超黑!!!"
+                payload = {
+                    "message": message
+                }
+
+                # 做 API 呼叫
+                response = requests.post(url, headers=headers, data=payload)
 
         cv2.imshow("Frame", frame)  
         if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下'q'鍵
